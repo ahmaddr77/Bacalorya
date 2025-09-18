@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>معهد تعلم الألمانية</title>
+  <meta name="description" content="تطبيق ويب لتعلّم اللغة الألمانية: دروس، أنشطة، اختبارات ومفضلة للطلاب.">
+
+  <!-- ربط manifest -->
+  <link rel="manifest" href="manifest.json">
+
+  <!-- أيقونة متصفح (مؤقتة من الإنترنت) -->
+  <link rel="icon" href="https://assets.berty.tech/favicon_blueprint-android-chrome-192x192.png" type="image/png">
+
+  <!-- Theme color -->
+  <meta name="theme-color" content="#1a73e8">
+
+  <style>
+    body { font-family: system-ui, Arial, "Helvetica Neue", sans-serif; margin:0; padding:24px; background:#f5f7fb; color:#111; }
+    header { text-align:center; margin-bottom:20px; }
+    h1 { color:#1a73e8; margin:0 0 8px 0; font-size:22px; }
+    p.lead { margin:0 0 18px 0; color:#333; }
+    .btn { display:inline-block; margin:6px; padding:10px 16px; background:#1a73e8; color:#fff; border-radius:8px; text-decoration:none; }
+    #status { margin-top:18px; color:#555; font-size:14px; }
+    footer { margin-top:36px; text-align:center; color:#777; font-size:13px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>معهد تعلم الألمانية</h1>
+    <p class="lead">تطبيق ويب تفاعلي: دروس، أنشطة، اختبارات ومفضلات.</p>
+    <a class="btn" href="#" onclick="alert('فتح العينة المجانية')">العينة المجانية</a>
+    <a class="btn" href="#" onclick="alert('فتح النسخة المدفوعة')">العينة المدفوعة</a>
+  </header>
+
+  <main>
+    <section id="content">
+      <h2>مرحبًا 👋</h2>
+      <p>هذه نسخة تجريبية لعرض كيف يعمل التطبيق كـ PWA. بعد تثبيته على الشاشة الرئيسية سيعمل كأنه تطبيق مستقل بدون شريط المتصفح.</p>
+      <div id="status">حالة: جاري التحقق من Service Worker…</div>
+    </section>
+  </main>
+
+  <footer>
+    نسخة الاختبار — يمكنك تحويلها إلى APK عبر PWABuilder أو تركها كـ PWA.
+  </footer>
+
+  <script>
+    // تسجيل Service Worker
+    async function registerSW() {
+      const statusEl = document.getElementById('status');
+      if ('serviceWorker' in navigator) {
+        try {
+          const reg = await navigator.serviceWorker.register('sw.js');
+          statusEl.textContent = 'حالة: Service Worker مسجّل (scope: ' + reg.scope + ')';
+        } catch (err) {
+          console.error('SW registration failed:', err);
+          statusEl.textContent = 'حالة: فشل تسجيل Service Worker. تحقق من console.';
+        }
+      } else {
+        statusEl.textContent = 'حالة: المتصفح لا يدعم Service Worker.';
+      }
+    }
+    registerSW();
+  </script>
+</body>
+</html>
